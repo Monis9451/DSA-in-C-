@@ -87,6 +87,22 @@ void deleteAtPosition(Node *&head, int position)
     else
     {
         // deleting 1st node at 0th index
+        Node* curr = head;
+        Node* pre = NULL;
+        int pos = 0;
+
+        while(curr != NULL && pos < position){
+            pre = curr;
+            curr = curr->next;
+            pos++;
+        }
+        if (curr == NULL)
+        {
+            cout << "Position out of bounds." << endl;
+            return;
+        }
+        pre->next = curr->next;
+        delete curr;
     }
 }
 
@@ -119,5 +135,7 @@ int main()
     display(head);
     cout << "Head: " << head->data << endl;
     cout << "Tail: " << tail->data << endl;
+    deleteAtPosition(head, 2);
+    display(head);
     return 0;
 }
