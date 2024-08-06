@@ -10,19 +10,19 @@ public:
     Node(int data)
     {
         this->data = data;
-        next = NULL;
+        next = nullptr;
     }
 };
 
 class linkedList
 {
 public:
-    Node *head = NULL;
+    Node *head = nullptr;
 
     //----------------Insert at start---------------
     void insertAtStart(int d)
     {
-        if (head == NULL)
+        if (head == nullptr)
         {
             head = new Node(d);
         }
@@ -37,14 +37,14 @@ public:
     //----------------Insert at end---------------
     void insertAtEnd(int d)
     {
-        if (head == NULL)
+        if (head == nullptr)
         {
             head = new Node(d);
         }
         else
         {
             Node *temp = head;
-            while (temp->next != NULL)
+            while (temp->next != nullptr)
             {
                 temp = temp->next;
             }
@@ -67,11 +67,11 @@ public:
         else
         {
             bool flag;
-            Node *previous = NULL;
+            Node *previous = nullptr;
             Node *current = head;
             for (int i = 0; i < index; i++)
             {
-                if (current == NULL)
+                if (current == nullptr)
                 {
                     flag = true;
                     break;
@@ -107,11 +107,11 @@ public:
         }
         else
         {
-            Node *prev = NULL;
+            Node *prev = nullptr;
             Node *curr = head;
             for (int i = 0; i < index; i++)
             {
-                if (curr == NULL)
+                if (curr == nullptr)
                 {
                     cout << "Index in unreachable" << endl;
                     return;
@@ -127,7 +127,7 @@ public:
     //----------------Searching index---------------
     bool searchIndex(Node *temp, int data)
     {
-        if (temp == NULL)
+        if (temp == nullptr)
         {
             return false;
         }
@@ -141,14 +141,14 @@ public:
     //----------------Printing forward--------------
     void forwardPrint()
     {
-        if (head == NULL)
+        if (head == nullptr)
         {
             cout << "The list is empty" << endl;
         }
         else
         {
             Node *temp = head;
-            while (temp != NULL)
+            while (temp != nullptr)
             {
                 cout << temp->data << "->";
                 temp = temp->next;
@@ -161,7 +161,7 @@ public:
     //----------------Printing reverse---------------
     void reversePrint(Node *temp)
     {
-        if(temp == NULL){
+        if(temp == nullptr){
             return;
         }
         reversePrint(temp->next);

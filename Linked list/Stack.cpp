@@ -53,7 +53,7 @@ public:
             cout << "There is nothing to print, the stack is empty" << endl;
             return;
         }
-        for (int i = 0; i <= top; i++)
+        for (int i = top; i >= 0; i--)
         {
             cout << "|" << arr[i] << "|" << endl;
         }

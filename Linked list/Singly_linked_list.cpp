@@ -10,22 +10,22 @@ public:
     Node()
     {
         data = 0;
-        next = NULL;
+        next = nullptr;
     }
 
     Node(int data)
     {
         this->data = data;
-        this->next = NULL;
+        this->next = nullptr;
     }
 
     ~Node()
     {
         int value = this->data;
-        if (this->next != NULL)
+        if (this->next != nullptr)
         {
             delete next;
-            this->next = NULL;
+            this->next = nullptr;
         }
         cout << "Memory is free for node with data: " << value << endl;
     }
@@ -65,7 +65,7 @@ void insertAtPosition(Node *&head, Node *&tail, int position, int d)
         pos++;
     }
     // inserting at the end
-    if (temp->next == NULL)
+    if (temp->next == nullptr)
     {
         insertAtTail(tail, d);
         return;
@@ -88,15 +88,15 @@ void deleteAtPosition(Node *&head, int position)
     {
         // deleting 1st node at 0th index
         Node* curr = head;
-        Node* pre = NULL;
+        Node* pre = nullptr;
         int pos = 0;
 
-        while(curr != NULL && pos < position){
+        while(curr != nullptr && pos < position){
             pre = curr;
             curr = curr->next;
             pos++;
         }
-        if (curr == NULL)
+        if (curr == nullptr)
         {
             cout << "Position out of bounds." << endl;
             return;
@@ -109,7 +109,7 @@ void deleteAtPosition(Node *&head, int position)
 void display(Node *&head)
 {
     Node *temp = head;
-    while (temp != NULL)
+    while (temp != nullptr)
     {
         cout << temp->data << " ";
         temp = temp->next;
