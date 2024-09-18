@@ -97,6 +97,7 @@ public:
         }
     }
 
+    //-------------------Displaying linked list
     void Display()
     {
         Node *temp = head;
@@ -110,6 +111,7 @@ public:
              << endl;
     }
 
+    //-------------------Searching in linked list
     bool search(int data)
     {
         Node *temp = head;
@@ -131,6 +133,7 @@ public:
         }
     }
 
+    //-------------------Inset after the given index of linked list
     void insertAfter(int index, int data)
     {
         int currIndex = 0;
@@ -160,14 +163,15 @@ public:
         }
     }
 
+    //-------------------Delete the given data of linked list
     void Delete(int data)
     {
-        Node* toDel = nullptr;
-        Node* temp = head;
-        Node* previous = nullptr;
-        while(temp != nullptr)
+        Node *toDel = nullptr;
+        Node *temp = head;
+        Node *previous = nullptr;
+        while (temp != nullptr)
         {
-            if(temp->data == data)
+            if (temp->data == data)
             {
                 toDel = temp;
                 break;
@@ -180,21 +184,22 @@ public:
         cout << "Data deleted" << endl;
     }
 
+    //-------------------Sorting in ascending order
     void sortAsceding()
     {
-        if(!head || !head->next)
+        if (!head || !head->next)
         {
             return;
         }
-        Node* temp = head;
+        Node *temp = head;
         bool flag = true;
-        while(flag)
+        while (flag)
         {
             flag = false;
             temp = head;
-            while(temp->next)
+            while (temp->next)
             {
-                if(temp->data > temp->next->data)
+                if (temp->data > temp->next->data)
                 {
                     swap(temp->data, temp->next->data);
                     flag = true;
@@ -204,21 +209,23 @@ public:
         }
         cout << "Data sorted out in acsending order" << endl;
     }
+
+    //-------------------Sorting in decending order
     void sortDecending()
     {
-        if(!head || !head->next)
+        if (!head || !head->next)
         {
             return;
         }
-        Node* temp = head;
+        Node *temp = head;
         bool flag = true;
-        while(flag)
+        while (flag)
         {
             flag = false;
             temp = head;
-            while(temp->next)
+            while (temp->next)
             {
-                if(temp->data < temp->next->data)
+                if (temp->data < temp->next->data)
                 {
                     swap(temp->data, temp->next->data);
                     flag = true;
@@ -227,6 +234,100 @@ public:
             }
         }
         cout << "Data sorted out in decending order" << endl;
+    }
+
+    //-------------------Sorting in ascending order
+    void acsendingSortedInsertion(int data)
+    {
+        Node *newNode = new Node(data);
+        if (head == nullptr)
+        {
+            head = newNode;
+        }
+        else if (data < head->data)
+        {
+            insertAtBegining(data);
+        }
+        else
+        {
+            Node *temp = head;
+            Node *previous = nullptr;
+            while (temp && temp->data < data)
+            {
+                previous = temp;
+                temp = temp->next;
+            }
+            if (previous != nullptr)
+            {
+                previous->next = newNode;
+                newNode->next = temp;
+            }
+            cout << "Data entered in Ascending order" << endl;
+        }
+    }
+
+    //-------------------Sorting in decending order
+    void decendingSortedInsertion(int data)
+    {
+        Node *newNode = new Node(data);
+        if (head == nullptr)
+        {
+            head = newNode;
+        }
+        else if (data > head->data)
+        {
+            insertAtBegining(data);
+        }
+        else
+        {
+            Node *temp = head;
+            Node *previous = nullptr;
+            while (temp && temp->data > data)
+            {
+                previous = temp;
+                temp = temp->next;
+            }
+            if (previous != nullptr)
+            {
+                previous->next = newNode;
+                newNode->next = temp;
+            }
+            cout << "Data entered in Ascending order" << endl;
+        }
+    }
+
+    //-------------------Find the middle of the linked list
+    void Middle()
+    {
+        int index = 0;
+        Node *temp = head;
+        while (temp)
+        {
+            index++;
+            temp = temp->next;
+        }
+        index = (index / 2);
+        temp = head;
+        for (int i = 0; i < index; i++)
+        {
+            temp = temp->next;
+        }
+        cout << "The middle data of linked list is: " << temp->data << endl;
+    }
+
+    //--------------------Find the number of times the data appears in the list
+    void numberOfData(int data)
+    {
+        Node *temp = head;
+        int times = 0;
+        while(temp->next)
+        {
+            if(temp->data = data)
+            {
+                times++;
+            }
+            
+        }
     }
 };
 
@@ -237,6 +338,7 @@ int main()
     list.insertAtBegining(5);
     list.insertAtBegining(4);
     list.insertAtBegining(3);
+    list.insertAtBegining(2);
     list.Display();
     list.insertAtEnd(6);
     list.insertAtEnd(7);
@@ -244,15 +346,21 @@ int main()
     list.Display();
     list.Update(3, 11);
     list.Display();
-    cout << list.search(11) << endl << endl;
+    cout << list.search(11) << endl
+         << endl;
     list.insertAfter(3, 12);
     list.Display();
     list.Delete(12);
     list.Display();
-    list.sortAsceding();
-    list.Display();
     list.sortDecending();
     list.Display();
+    list.decendingSortedInsertion(13);
+    list.Display();
+    list.sortAsceding();
+    list.Display();
+    list.acsendingSortedInsertion(12);
+    list.Display();
+    list.Middle();
 
     return 0;
 }
