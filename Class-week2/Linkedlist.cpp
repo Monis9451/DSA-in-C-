@@ -25,14 +25,14 @@ public:
         if (head == nullptr)
         {
             head = new Node(data);
-            cout << "Data inserted in start" << endl;
+            cout << "Data inserted in start." << endl;
         }
         else
         {
             Node *temp = new Node(data);
             temp->next = head;
             head = temp;
-            cout << "Data inserted in start" << endl;
+            cout << "Data inserted in start." << endl;
         }
     }
 
@@ -42,7 +42,7 @@ public:
         if (head == nullptr)
         {
             head = new Node(data);
-            cout << "Data inserted at the end" << endl;
+            cout << "Data inserted at the end." << endl;
         }
         else
         {
@@ -53,7 +53,7 @@ public:
                 temp = temp->next;
             }
             temp->next = newNode;
-            cout << "Data inserted at the end" << endl;
+            cout << "Data inserted at the end." << endl;
         }
     }
 
@@ -66,7 +66,7 @@ public:
         bool error = false;
         if (index < 0)
         {
-            cout << "Invalid index entered" << endl;
+            cout << "Invalid index entered." << endl;
         }
         else if (index == 0)
         {
@@ -86,13 +86,13 @@ public:
             }
             if (error)
             {
-                cout << "error" << endl;
-                cout << "Invalid index" << endl;
+                cout << "error." << endl;
+                cout << "Invalid index." << endl;
             }
             else
             {
                 temp->data = data;
-                cout << "Data updated" << endl;
+                cout << "Data updated." << endl;
             }
         }
     }
@@ -106,6 +106,10 @@ public:
         {
             cout << temp->data << " -> ";
             temp = temp->next;
+            if(temp == head)
+            {
+                break;
+            }
         }
         cout << endl
              << endl;
@@ -120,7 +124,7 @@ public:
         {
             if (temp->data == data)
             {
-                cout << "Required data found" << endl;
+                cout << "Required data found." << endl;
                 flag = false;
                 return true;
             }
@@ -128,7 +132,7 @@ public:
         }
         if (flag)
         {
-            cout << "Data not found" << endl;
+            cout << "Data not found." << endl;
             return false;
         }
     }
@@ -142,7 +146,7 @@ public:
         bool error = false;
         if (index < 0)
         {
-            cout << "Invalid index entered" << endl;
+            cout << "Invalid index entered." << endl;
         }
         else
         {
@@ -159,29 +163,38 @@ public:
             Node *newNode = new Node(data);
             newNode->next = temp->next;
             temp->next = newNode;
-            cout << "Data entered after required node" << endl;
+            cout << "Data entered after required node." << endl;
         }
     }
 
     //-------------------Delete the given data of linked list
     void Delete(int data)
     {
-        Node *toDel = nullptr;
-        Node *temp = head;
-        Node *previous = nullptr;
-        while (temp != nullptr)
+        if(head->data == data)
         {
-            if (temp->data == data)
-            {
-                toDel = temp;
-                break;
-            }
-            previous = temp;
-            temp = temp->next;
+            Node *toDel = head;
+            head = head->next;
+            delete[] toDel;
         }
-        previous->next = temp->next;
-        delete toDel;
-        cout << "Data deleted" << endl;
+        else
+        {
+            Node *toDel = nullptr;
+            Node *temp = head;
+            Node *previous = nullptr;
+            while (temp != nullptr)
+            {
+                if (temp->data == data)
+                {
+                    toDel = temp;
+                    break;
+                }
+                previous = temp;
+                temp = temp->next;
+            }
+            previous->next = temp->next;
+            delete toDel;
+            cout << "Data deleted" << endl;
+        }
     }
 
     //-------------------Sorting in ascending order
@@ -207,7 +220,7 @@ public:
                 temp = temp->next;
             }
         }
-        cout << "Data sorted out in acsending order" << endl;
+        cout << "Data sorted out in acsending order." << endl;
     }
 
     //-------------------Sorting in decending order
@@ -233,7 +246,7 @@ public:
                 temp = temp->next;
             }
         }
-        cout << "Data sorted out in decending order" << endl;
+        cout << "Data sorted out in decending order." << endl;
     }
 
     //-------------------Sorting in ascending order
@@ -262,7 +275,7 @@ public:
                 previous->next = newNode;
                 newNode->next = temp;
             }
-            cout << "Data entered in Ascending order" << endl;
+            cout << "Data entered in Ascending order." << endl;
         }
     }
 
@@ -292,7 +305,7 @@ public:
                 previous->next = newNode;
                 newNode->next = temp;
             }
-            cout << "Data entered in Ascending order" << endl;
+            cout << "Data entered in Ascending order." << endl;
         }
     }
 
@@ -312,7 +325,7 @@ public:
         {
             temp = temp->next;
         }
-        cout << "The middle data of linked list is: " << temp->data << endl;
+        cout << "The middle data of linked list is: " << temp->data << "." << endl;
     }
 
     //--------------------Find the number of times the data appears in the list
@@ -322,12 +335,91 @@ public:
         int times = 0;
         while(temp->next)
         {
-            if(temp->data = data)
+            if(temp->data == data)
             {
                 times++;
             }
-            
+            temp = temp->next;
         }
+        cout << "The " << data << " appears " << times << " times in the list." << endl;
+    }
+
+    //--------------------Find the linked list is circular or not
+    bool isCircular()
+    {
+        Node *temp = head;
+        temp = temp->next;
+        bool flag = true;
+        while(temp->next)
+        {
+            if(temp == head)
+            {
+                flag = false;
+                return true;
+                break;
+            }
+            temp = temp->next;
+        }
+        if(flag)
+        {
+            return false;
+        }
+    }
+
+    //--------------------Making the linked list circular
+    void makingCirculer()
+    {
+        if(head == nullptr)
+        {
+            cout << "Linkedlist is empty" << endl;
+        }
+        else
+        {
+            Node *temp = head;
+            while(temp->next)
+            {
+                temp = temp->next;
+            }
+            temp->next = head;
+            cout << "Linked list converted to circular linked list" << endl;
+        }
+    }
+
+    void makingUncircular()
+    {
+        if(head == nullptr)
+        {
+            cout << "Linkedlist is empty" << endl;
+        }
+        else
+        {
+            Node *temp = head;
+            Node *prev = nullptr;
+            while(temp->next)
+            {
+                prev = temp;
+                temp = temp->next;
+                if(temp == head)
+                {
+                    break;
+                }
+            }
+            prev->next = nullptr;
+            cout << "Converted to uncircular linked list" << endl;
+        }
+    }
+
+    void exchnagingFirstnLastNodes()
+    {
+        Node *temp = head;
+        while(temp->next)
+        {
+            temp = temp->next;
+        }
+        int tempData = temp->data;
+        temp->data = head->data;
+        head->data = tempData;
+        cout << "The nodes are exchanged now" << endl;
     }
 };
 
@@ -358,9 +450,17 @@ int main()
     list.Display();
     list.sortAsceding();
     list.Display();
-    list.acsendingSortedInsertion(12);
+    list.acsendingSortedInsertion(11);
     list.Display();
     list.Middle();
+    list.numberOfData(11);
+    cout << "Is the given linked list is circular? : " << list.isCircular() << endl;
+    list.makingCirculer();
+    cout << "Is the given linked list is circular? : " << list.isCircular() << endl;
+    list.Display();
+    list.makingUncircular();
+    list.exchnagingFirstnLastNodes();
+    list.Display();
 
     return 0;
 }
