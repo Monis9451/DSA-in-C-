@@ -421,6 +421,47 @@ public:
         head->data = tempData;
         cout << "The nodes are exchanged now" << endl;
     }
+
+    void merge(LinkedList *List1, LinkedList *List2, LinkedList *List3)
+    {
+    Node *head1 = List1->head;
+    Node *head2 = List2->head;
+    Node *temp1 = head1;
+    Node *temp2 = head2;
+    while(temp1 != nullptr && temp2 != nullptr)
+    {
+        if(temp1->data < temp2->data)
+        {
+        List3->insertAtEnd(temp1->data);
+        temp1 = temp1->next;
+        }
+        else if(temp2->data < temp1->data)
+        {
+        List3->insertAtEnd(temp2->data);
+        temp2 = temp2->next;
+        }
+        else if(temp1->data == temp2->data)
+        {
+        List3->insertAtEnd(temp1->data);
+        temp1 = temp1->next;
+        List3->insertAtEnd(temp2->data);
+        temp2 = temp2->next;
+        }
+        else if(temp1 == nullptr)
+        {
+        while(temp2 != nullptr);
+        List3->insertAtEnd(temp2->data);
+        temp2 = temp2->next;
+        }
+        else if(temp2 == nullptr)
+        {
+        while(temp1 != nullptr);
+        List3->insertAtEnd(temp1->data);
+        temp1 = temp1->next;
+        }
+    }
+    List3->Display();
+    }
 };
 
 int main()
@@ -461,6 +502,16 @@ int main()
     list.makingUncircular();
     list.exchnagingFirstnLastNodes();
     list.Display();
+    LinkedList List1;
+    List1.insertAtEnd(3);
+    List1.insertAtEnd(5);
+    List1.insertAtEnd(6);
+    LinkedList List2;
+    List2.insertAtEnd(2);
+    List2.insertAtEnd(4);
+    List2.insertAtEnd(7);
+    LinkedList List3;
+    list.merge(&List1, &List2, &List3);
 
     return 0;
 }
