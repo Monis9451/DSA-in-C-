@@ -76,11 +76,11 @@ public:
             cout << "Queue is empty" << endl;
             return;
         }
-        cout << "Queue elements: ";
+        cout << "Queue elements: " << endl;
         for (int i = 0; i < currSize; i++)
         {
             int index = (front + i) % MAX_SIZE;
-            cout << queue[index] << " ";
+            cout << "|" << queue[index] << "|" << endl;
         }
         cout << endl;
     }
@@ -89,19 +89,22 @@ public:
 int main()
 {
     Queue queue;
-    queue.enqueue(10);
-    queue.enqueue(9);
-    queue.enqueue(8);
-    queue.enqueue(7);
-    queue.enqueue(6);
-    queue.enqueue(5);
-    queue.enqueue(4);
-    queue.enqueue(3);
-    queue.enqueue(2);
     queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
+    queue.enqueue(4);
+    queue.enqueue(5);
+    queue.enqueue(6);
+    queue.enqueue(7);
+    queue.enqueue(8);
+    queue.enqueue(9);
+    queue.enqueue(10);
     queue.display();
-    queue.dequeue();
-    queue.dequeue();
+    cout << "Size: " << queue.size() << endl;
+    cout << "Deque: " << queue.dequeue() << endl;
+    cout << "Size: " << queue.size() << endl;
+    cout << "Deque: " << queue.dequeue() << endl;
+    cout << "Size: " << queue.size() << endl;
     queue.display();
     queue.enqueue(11);
     queue.display();
