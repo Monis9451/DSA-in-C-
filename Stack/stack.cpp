@@ -88,31 +88,70 @@ public:
     {
         return (top == -1);
     }
+
+    bool validParanthesis(char arr[])
+    {
+        for(int i=0; i < 8; i++)
+        {
+            if(arr[i] == '(' || arr[i] == '{' || arr[i] == '[')
+            {
+                push(arr[i]);
+            }
+            else if(arr[i] == ')' || arr[i] == '}' || arr[i] == ']')
+            {
+                if(isEmpty())
+                {
+                    return false;
+                }
+                if(arr[i] == ')' && topVal() == '(' || arr[i] == '}' && topVal() == '{' || arr[i] == ']' && topVal() == '[')
+                {
+                    pop();
+                }
+                else
+                {
+                    cout << "The paranthesis are not valid" << endl;
+                    return false;
+                }
+            }
+        }
+        if(isEmpty())
+        {
+            cout << "The paranthesis are valid" << endl;
+            return true;
+        }
+        else
+        {
+            cout << "The paranthesis are not valid" << endl;
+            return false;
+        }
+    }
 };
 
 int main()
 {
     Stack stack;
-    cout << "Pushing some data" << endl;
-    stack.push(3);
-    stack.push(4);
-    stack.push(5);
-    stack.push(6);
-    stack.push(7);
-    cout << "Printing data" << endl;
-    stack.print();
-    cout << "Pop the last value" << endl;
-    stack.pop();
-    cout << "Printing data" << endl;
-    stack.print();
-    cout << "Printing pop data" << endl;
-    cout << stack.popReturnVal() << endl;
-    cout << "Printing data" << endl;
-    stack.print();
-    cout << "Printing top value" << endl;
-    cout << stack.topVal() << endl;
-    cout << "Printing size of stack" << endl;
-    cout << stack.stackSize() << endl;
+    // cout << "Pushing some data" << endl;
+    // stack.push(3);
+    // stack.push(4);
+    // stack.push(5);
+    // stack.push(6);
+    // stack.push(7);
+    // cout << "Printing data" << endl;
+    // stack.print();
+    // cout << "Pop the last value" << endl;
+    // stack.pop();
+    // cout << "Printing data" << endl;
+    // stack.print();
+    // cout << "Printing pop data" << endl;
+    // cout << stack.popReturnVal() << endl;
+    // cout << "Printing data" << endl;
+    // stack.print();
+    // cout << "Printing top value" << endl;
+    // cout << stack.topVal() << endl;
+    // cout << "Printing size of stack" << endl;
+    // cout << stack.stackSize() << endl;
+    char arr[] = {'{', '(', ')', '}', '(', '[', ']',')'};
+    cout << stack.validParanthesis(arr);
 
     return 0;
 }
