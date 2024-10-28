@@ -1,5 +1,5 @@
 #include <iostream>
-#include <algorithm>
+#include <string>
 using namespace std;
 
 class Node
@@ -105,72 +105,43 @@ public:
         return (data == '^' || data == '*' || data == '/' || data == '%' || data == '-' || data == '+');
     }
 
-    int checkPrecedence(char a)
+    int evaluation(string prefix)
     {
-        switch (a)
+        stack Stack;
+        for (int i = prefix.size(); i >= 0; i--)
         {
-        case '^':
-            return 3;
-        case '*':
-        case '/':
-        case '%':
-            return 2;
-        case '-':
-        case '+':
-            return 1;
-        default:
-            return 0;
-        }
-    }
-
-    string prefixConverter(char arr[], int size)
-    {
-        string answer;
-        reverse(arr, arr + size);
-        for (int i = 0; i < size; i++)
-        {
-            if (arr[i] == '(')
+            if (prefix[i] >= '0' && prefix[i] <= '9')
             {
-                arr[i] = ')';
+                Stack.push(prefix[i] - '0');
             }
-            else if (arr[i] == ')')
+            else
             {
-                arr[i] = '(';
-            }
-        }
-        for (int i = 0; i < size; i++)
-        {
-            if ((arr[i] >= 'A' && arr[i] <= 'Z') || (arr[i] >= 'a' && arr[i] <= 'z') || (arr[i] >= '0' && arr[i] <= '9'))
-            {
-                answer += arr[i];
-            }
-            else if (arr[i] == '(')
-            {
-                push(arr[i]);
-            }
-            else if (arr[i] == ')')
-            {
-                while (!isEmpty() && top() != '(')
+                int a = Stack.pop();
+                int b = Stack.pop();
+                switch (prefix[i])
                 {
-                    answer += pop();
+                case '+':
+                    Stack.push(b + a);
+                    break;
+                case '-':
+                    Stack.push(b - a);
+                    break;
+                case '*':
+                    Stack.push(b * a);
+                    break;
+                case '/':
+                    Stack.push(b / a);
+                    break;
+                case '%':
+                    Stack.push(b % a);
+                    break;
+                case '^':
+                    Stack.push(b ^ a);
+                    break;
                 }
-                pop();
-            }
-            else if (isOperator(arr[i]))
-            {
-                while (!isEmpty() && checkPrecedence(top()) >= checkPrecedence(arr[i]))
-                {
-                    answer += pop();
-                }
-                push(arr[i]);
             }
         }
-        while(!isEmpty())
-        {
-            answer += pop();
-        }
-        reverse(answer.begin(), answer.end());
-        return answer;
+        return Stack.pop();
     }
 };
 
@@ -178,9 +149,8 @@ int main()
 {
     stack Stack;
 
-    const int size = 11;
-    char arr[size] = {'(', 'A', '+', 'B', ')', '*', '(', 'C', '+', 'D', ')'};
-    cout << Stack.prefixConverter(arr, size);
+    string prefix = "*+72+38";
+    cout << Stack.evaluation(prefix);
 
     return 0;
 }
