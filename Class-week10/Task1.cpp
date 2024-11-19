@@ -1,36 +1,36 @@
 #include <iostream>
 using namespace std;
 
-class Patient
+class Node
 {
 public:
-    int ID;
+    int key;
     int age;
     string name;
-    Patient *left;
-    Patient *right;
+    Node *left;
+    Node *right;
 
-    Patient(int ID, string name, int age)
+    Node(int ID, string name, int age)
     {
         this->name = name;
-        this->ID = ID;
+        this->key = ID;
         this->age = age;
         left = right = nullptr;
     }
 };
 
-Patient *insertingID(Patient *root, Patient *New1)
+Node *insertingID(Node *root, Node *New1)
 {
     if (!root)
     {
         root = New1;
         return root;
     }
-    if (root->ID == New1->ID)
+    if (root->key == New1->key)
     {
         return root;
     }
-    if (root->ID < New1->ID)
+    if (root->key < New1->key)
     {
         root->right = insertingID(root->right, New1);
     }
@@ -40,65 +40,65 @@ Patient *insertingID(Patient *root, Patient *New1)
     }
 }
 
-void preorder(Patient *root)
+void preorder(Node *root)
 {
     if (root)
     {
-        cout << root->ID << " " << root->name << ", ";
+        cout << root->key << " " << root->name << ", ";
         preorder(root->left);
         preorder(root->right);
     }
 }
 
-void inorder(Patient *root)
+void inorder(Node *root)
 {
     if (root)
     {
         inorder(root->left);
-        cout << root->ID << " " << root->name << ", ";
+        cout << root->key << " " << root->name << ", ";
         inorder(root->right);
     }
 }
 
-void postorder(Patient *root)
+void postorder(Node *root)
 {
     if (root)
     {
         postorder(root->left);
         postorder(root->right);
-        cout << root->ID << " " << root->name << ", ";
+        cout << root->key << " " << root->name << ", ";
     }
 }
 
-Patient *search(Patient *root, int ID)
+Node *search(Node *root, int ID)
 {
-    if (!root || root->ID == ID)
+    if (!root || root->key == ID)
         return root;
-    if (root->ID < ID)
+    if (root->key < ID)
         return search(root->right, ID);
     return search(root->left, ID);
 }
 
-Patient *maxAge(Patient *root, Patient* Maxaged)
+Node *maxAge(Node *root, Node* Maxaged)
 {
     if (!root)
         return Maxaged;
     if (root->age > Maxaged->age)
         Maxaged = root;
-    Patient *left = maxAge(root->left, Maxaged);
-    Patient *right = maxAge(root->right, Maxaged);
+    Node *left = maxAge(root->left, Maxaged);
+    Node *right = maxAge(root->right, Maxaged);
     if (left->age > right->age)
         return left;
     return right;
 }
 
-void Deletion(Patient*& root, int ID)
+void Deletion(Node*& root, int ID)
 {
     if(!root)
     {
         return;
     }
-    if(root->ID == ID)
+    if(root->key == ID)
     { 
         if(!root->left && !root->right)
         {
@@ -108,27 +108,27 @@ void Deletion(Patient*& root, int ID)
         }
         if(!root->left)
         {
-            Patient* temp = root;
+            Node* temp = root;
             root = root->right;
             delete temp;
             return;
         }
         if(!root->right)
         {
-            Patient* temp = root;
+            Node* temp = root;
             root = root->left;
             delete temp;
             return;
         }
-        Patient* temp = root->right;
+        Node* temp = root->right;
         while(temp->left)
             temp = temp->left;
-        root->ID = temp->ID;
+        root->key = temp->key;
         root->name = temp->name;
         root->age = temp->age;
-        Deletion(root->right, temp->ID);
+        Deletion(root->right, temp->key);
     }
-    if(root->ID < ID)
+    if(root->key < ID)
     {
         Deletion(root->right, ID);
     }
@@ -147,13 +147,13 @@ int main()
     //      /     \              /      \
     //  20(Asad) 40(Umer)   60(Mohsin) 80(Faizan)
 
-    Patient *root = new Patient(50, "Monis", 18);
-    Patient *Ali = new Patient(30, "Ali", 19);
-    Patient *Asad = new Patient(20, "Asad", 20);
-    Patient *Umer = new Patient(40, "Umer", 21);
-    Patient *Bilal = new Patient(70, "Bilal", 22);
-    Patient *Mohsin = new Patient(60, "Mohsin", 23);
-    Patient *Faizan = new Patient(80, "Faizan", 24);
+    Node *root = new Node(50, "Monis", 18);
+    Node *Ali = new Node(30, "Ali", 19);
+    Node *Asad = new Node(20, "Asad", 20);
+    Node *Umer = new Node(40, "Umer", 21);
+    Node *Bilal = new Node(70, "Bilal", 22);
+    Node *Mohsin = new Node(60, "Mohsin", 23);
+    Node *Faizan = new Node(80, "Faizan", 24);
     root = insertingID(root, Ali);
     root = insertingID(root, Asad);
     root = insertingID(root, Umer);
@@ -162,8 +162,8 @@ int main()
     root = insertingID(root, Faizan);
 
     // searching Bilal
-    Patient *searched = search(root, 70);
-    cout << "Searched: " << searched->ID << ", " << searched->name << endl;
+    Node *searched = search(root, 70);
+    cout << "Searched: " << searched->key << ", " << searched->name << endl;
 
     // Print inorder traversal of the BST
     cout << "Inorder: ";
@@ -196,9 +196,9 @@ int main()
     cout << endl;
     
     // maximum age
-    Patient* Maxaged = root;
-    Patient *Maxage = maxAge(root, Maxaged);
-    cout << "Maximum age: " << Maxage->name << ", " << Maxage->age << ", " << Maxage->ID << endl;
+    Node* Maxaged = root;
+    Node *Maxage = maxAge(root, Maxaged);
+    cout << "Maximum age: " << Maxage->name << ", " << Maxage->age << ", " << Maxage->key << endl;
 
     //deletion
     Deletion(root, 30);
