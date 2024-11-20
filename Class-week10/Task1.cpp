@@ -1,4 +1,6 @@
 #include <iostream>
+#include <stack>
+#include <queue>
 using namespace std;
 
 class Node
@@ -9,13 +11,14 @@ public:
     string name;
     Node *left;
     Node *right;
+    Node *parent;
 
     Node(int ID, string name, int age)
     {
         this->name = name;
         this->key = ID;
         this->age = age;
-        left = right = nullptr;
+        left = right = parent = nullptr;
     }
 };
 
@@ -27,6 +30,21 @@ Node *insertingID(Node *root, Node *New1)
         return root;
     }
     if (root->key == New1->key)
+    {
+        return root;
+    }
+    if (root->key < New1->key)
+    {
+        root->right = insertingID(root->right, New1);
+        if (root->right) 
+            root->right->parent = root;
+    }
+    else
+    {
+        root->left = insertingID(root->left, New1);
+        if (root->left) root->left->parent = root;
+    }
+    return root;
     {
         return root;
     }
@@ -102,22 +120,23 @@ void Deletion(Node*& root, int ID)
     { 
         if(!root->left && !root->right)
         {
+            if(root->parent->left == root)
+                root->parent->left = nullptr;
+            else
+                root->parent->right = nullptr;
             delete root;
-            root = nullptr;
             return;
         }
         if(!root->left)
         {
-            Node* temp = root;
-            root = root->right;
-            delete temp;
+            root->parent->right = root->right;
+            delete root;
             return;
         }
         if(!root->right)
         {
-            Node* temp = root;
-            root = root->left;
-            delete temp;
+            root->parent->left = root->left;
+            delete root;
             return;
         }
         Node* temp = root->right;
@@ -127,6 +146,8 @@ void Deletion(Node*& root, int ID)
         root->name = temp->name;
         root->age = temp->age;
         Deletion(root->right, temp->key);
+        if (root->right)
+            root->right->parent = root;
     }
     if(root->key < ID)
     {
@@ -138,31 +159,63 @@ void Deletion(Node*& root, int ID)
     }
 }
 
+void descendingOrder(Node *root, stack<int> &st)
+{
+    if (root)
+    {
+        descendingOrder(root->right, st);
+        cout << root->key << " " << root->name << ", ";
+        descendingOrder(root->left, st);
+    }
+}
+
+int height(Node* root)
+{
+    if(!root)
+        return 0;
+    int left = height(root->left);
+    int right = height(root->right);
+    return max(left, right) + 1;
+}
+
+void levelOrderDisaply(Node* root)
+{
+    if(!root)
+        return;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* temp = q.front();
+        q.pop();
+        cout << temp->key << " " << temp->name << ", ";
+        if(temp->left)
+            q.push(temp->left);
+        if(temp->right)
+            q.push(temp->right);
+    }
+}
+
 int main()
 {
-    // Creating the following BST
-    //               50(Monis)
-    //             /           \
-    //      30(Ali)              70(Bilal)
-    //      /     \              /      \
-    //  20(Asad) 40(Umer)   60(Mohsin) 80(Faizan)
-
-    Node *root = new Node(50, "Monis", 18);
-    Node *Ali = new Node(30, "Ali", 19);
-    Node *Asad = new Node(20, "Asad", 20);
-    Node *Umer = new Node(40, "Umer", 21);
-    Node *Bilal = new Node(70, "Bilal", 22);
-    Node *Mohsin = new Node(60, "Mohsin", 23);
-    Node *Faizan = new Node(80, "Faizan", 24);
+    Node *root = new Node(5, "Monis", 18);
+    Node *Ali = new Node(2, "Ali", 19);
+    Node *Asad = new Node(18, "Asad", 20);
+    Node *Umer = new Node(-4, "Umer", 21);
+    Node *Bilal = new Node(3, "Bilal", 22);
+    Node *Mohsin = new Node(21, "Mohsin", 23);
+    Node *Faizan = new Node(19, "Faizan", 24);
+    Node *Hamza = new Node(25, "Hamza", 26);
     root = insertingID(root, Ali);
     root = insertingID(root, Asad);
     root = insertingID(root, Umer);
     root = insertingID(root, Bilal);
     root = insertingID(root, Mohsin);
     root = insertingID(root, Faizan);
+    root = insertingID(root, Hamza);
 
     // searching Bilal
-    Node *searched = search(root, 70);
+    Node *searched = search(root, 21);
     cout << "Searched: " << searched->key << ", " << searched->name << endl;
 
     // Print inorder traversal of the BST
@@ -201,11 +254,26 @@ int main()
     cout << "Maximum age: " << Maxage->name << ", " << Maxage->age << ", " << Maxage->key << endl;
 
     //deletion
-    Deletion(root, 30);
+    Deletion(root, 21);
     
     // Print inorder traversal of the BST
     cout << "Inorder: ";
     inorder(root);
+    cout << endl;
+
+    // descending order
+    stack<int> st;
+    cout << "Descending order: ";
+    descendingOrder(root, st);
+    cout << endl;
+
+    //Height
+    cout << "Height of the tree: " << height(root) << endl;
+
+    //Level order display
+    cout << "Level order display: ";
+    levelOrderDisaply(root);
+    cout << endl;
 
     return 0;
 }
