@@ -4,12 +4,12 @@ using namespace std;
 class Node
 {
     public:
-    int data;
+    int key;
     Node *next;
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->next = nullptr;
     }
 };
@@ -94,7 +94,7 @@ class Linkedlist
         Node *prev = nullptr;
         while(temp)
         {
-            if(temp->data == data)
+            if(temp->key == data)
             {
                 prev->next = temp->next;
                 delete[] temp;

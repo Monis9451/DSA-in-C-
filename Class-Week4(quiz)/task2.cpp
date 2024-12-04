@@ -4,12 +4,12 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *next;
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->next = nullptr;
     }
 };
@@ -60,7 +60,7 @@ public:
         {
             if(currIndex == n)
             {
-                return temp->data;
+                return temp->key;
             }
             temp = temp->next;
             currIndex++;
@@ -73,7 +73,7 @@ public:
         Node *temp = head;
         while (temp != nullptr)
         {
-            cout << temp->data << "->";
+            cout << temp->key << "->";
             temp = temp->next;
         }
         cout << endl;

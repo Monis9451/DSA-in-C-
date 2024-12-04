@@ -3,12 +3,12 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *next;
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->next = nullptr;
     }
 };
@@ -70,7 +70,7 @@ public:
         }
         else if (index == 0)
         {
-            head->data = data;
+            head->key = data;
             cout << "Data inserted at " << index << " index." << endl;
         }
         else
@@ -91,7 +91,7 @@ public:
             }
             else
             {
-                temp->data = data;
+                temp->key = data;
                 cout << "Data updated." << endl;
             }
         }
@@ -104,7 +104,7 @@ public:
         cout << "List: ";
         while (temp != nullptr)
         {
-            cout << temp->data << " -> ";
+            cout << temp->key << " -> ";
             temp = temp->next;
             if(temp == head)
             {
@@ -122,7 +122,7 @@ public:
         bool flag = true;
         while (temp != nullptr)
         {
-            if (temp->data == data)
+            if (temp->key == data)
             {
                 cout << "Required data found." << endl;
                 flag = false;
@@ -170,7 +170,7 @@ public:
     //-------------------Delete the given data of linked list
     void Delete(int data)
     {
-        if(head->data == data)
+        if(head->key == data)
         {
             Node *toDel = head;
             head = head->next;
@@ -183,7 +183,7 @@ public:
             Node *previous = nullptr;
             while (temp != nullptr)
             {
-                if (temp->data == data)
+                if (temp->key == data)
                 {
                     toDel = temp;
                     break;
@@ -212,9 +212,9 @@ public:
             temp = head;
             while (temp->next)
             {
-                if (temp->data > temp->next->data)
+                if (temp->key > temp->next->key)
                 {
-                    swap(temp->data, temp->next->data);
+                    swap(temp->key, temp->next->key);
                     flag = true;
                 }
                 temp = temp->next;
@@ -238,9 +238,9 @@ public:
             temp = head;
             while (temp->next)
             {
-                if (temp->data < temp->next->data)
+                if (temp->key < temp->next->key)
                 {
-                    swap(temp->data, temp->next->data);
+                    swap(temp->key, temp->next->key);
                     flag = true;
                 }
                 temp = temp->next;
@@ -257,7 +257,7 @@ public:
         {
             head = newNode;
         }
-        else if (data < head->data)
+        else if (data < head->key)
         {
             insertAtBegining(data);
         }
@@ -265,7 +265,7 @@ public:
         {
             Node *temp = head;
             Node *previous = nullptr;
-            while (temp && temp->data < data)
+            while (temp && temp->key < data)
             {
                 previous = temp;
                 temp = temp->next;
@@ -287,7 +287,7 @@ public:
         {
             head = newNode;
         }
-        else if (data > head->data)
+        else if (data > head->key)
         {
             insertAtBegining(data);
         }
@@ -295,7 +295,7 @@ public:
         {
             Node *temp = head;
             Node *previous = nullptr;
-            while (temp && temp->data > data)
+            while (temp && temp->key > data)
             {
                 previous = temp;
                 temp = temp->next;
@@ -325,7 +325,7 @@ public:
         {
             temp = temp->next;
         }
-        cout << "The middle data of linked list is: " << temp->data << "." << endl;
+        cout << "The middle data of linked list is: " << temp->key << "." << endl;
     }
 
     //--------------------Find the number of times the data appears in the list
@@ -335,7 +335,7 @@ public:
         int times = 0;
         while(temp->next)
         {
-            if(temp->data == data)
+            if(temp->key == data)
             {
                 times++;
             }
@@ -416,9 +416,9 @@ public:
         {
             temp = temp->next;
         }
-        int tempData = temp->data;
-        temp->data = head->data;
-        head->data = tempData;
+        int tempData = temp->key;
+        temp->key = head->key;
+        head->key = tempData;
         cout << "The nodes are exchanged now" << endl;
     }
 
@@ -430,33 +430,33 @@ public:
     Node *temp2 = head2;
     while(temp1 != nullptr && temp2 != nullptr)
     {
-        if(temp1->data < temp2->data)
+        if(temp1->key < temp2->key)
         {
-        List3->insertAtEnd(temp1->data);
+        List3->insertAtEnd(temp1->key);
         temp1 = temp1->next;
         }
-        else if(temp2->data < temp1->data)
+        else if(temp2->key < temp1->key)
         {
-        List3->insertAtEnd(temp2->data);
+        List3->insertAtEnd(temp2->key);
         temp2 = temp2->next;
         }
-        else if(temp1->data == temp2->data)
+        else if(temp1->key == temp2->key)
         {
-        List3->insertAtEnd(temp1->data);
+        List3->insertAtEnd(temp1->key);
         temp1 = temp1->next;
-        List3->insertAtEnd(temp2->data);
+        List3->insertAtEnd(temp2->key);
         temp2 = temp2->next;
         }
         else if(temp1 == nullptr)
         {
         while(temp2 != nullptr);
-        List3->insertAtEnd(temp2->data);
+        List3->insertAtEnd(temp2->key);
         temp2 = temp2->next;
         }
         else if(temp2 == nullptr)
         {
         while(temp1 != nullptr);
-        List3->insertAtEnd(temp1->data);
+        List3->insertAtEnd(temp1->key);
         temp1 = temp1->next;
         }
     }

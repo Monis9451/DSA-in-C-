@@ -4,12 +4,12 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node* left;
     Node* right;
 
     Node(int val) {
-        data = val;
+        key = val;
         left = nullptr;
         right = nullptr;
     }
@@ -20,7 +20,7 @@ void inorderTraversal(Node* node) {
         return;
     }
     inorderTraversal(node->left);
-    cout << node->data << " ";
+    cout << node->key << " ";
     inorderTraversal(node->right);
 }
 
@@ -62,7 +62,7 @@ public:
         if (root == nullptr)
             return;
 
-        cout << root->data << " ";
+        cout << root->key << " ";
         preOrder(root->left);
         preOrder(root->right);
     }
@@ -73,7 +73,7 @@ public:
             return;
 
         inOrder(root->left);
-        cout << root->data << " ";
+        cout << root->key << " ";
         inOrder(root->right);
     }
 
@@ -84,7 +84,7 @@ public:
 
         postOrder(root->left);
         postOrder(root->right);
-        cout << root->data << " ";
+        cout << root->key << " ";
     }
 };
 

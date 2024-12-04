@@ -4,24 +4,24 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *next;
 
     Node()
     {
-        data = 0;
+        key = 0;
         next = nullptr;
     }
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->next = nullptr;
     }
 
     ~Node()
     {
-        int value = this->data;
+        int value = this->key;
         if (this->next != nullptr)
         {
             delete next;
@@ -111,7 +111,7 @@ void display(Node *&head)
     Node *temp = head;
     while (temp != nullptr)
     {
-        cout << temp->data << " ";
+        cout << temp->key << " ";
         temp = temp->next;
     }
     cout << endl;
@@ -133,8 +133,8 @@ int main()
     display(head);
     insertAtPosition(head, tail, 5, 8);
     display(head);
-    cout << "Head: " << head->data << endl;
-    cout << "Tail: " << tail->data << endl;
+    cout << "Head: " << head->key << endl;
+    cout << "Tail: " << tail->key << endl;
     deleteAtPosition(head, 2);
     display(head);
     return 0;

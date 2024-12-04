@@ -4,9 +4,9 @@ using namespace std;
 class Node
 {
     public:
-    int data;
+    int key;
     Node *next;
-    Node(int val) : data(val), next(nullptr) {}
+    Node(int val) : key(val), next(nullptr) {}
 };
 
 Node* insertAtTail(Node *head, int value)
@@ -48,7 +48,7 @@ void printList(Node *head)
 {
     while (head != nullptr)
     {
-        cout << head->data << " -> ";
+        cout << head->key << " -> ";
         head = head->next;
     }
     cout << "nullptr" << endl;

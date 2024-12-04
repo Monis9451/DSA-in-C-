@@ -4,13 +4,13 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *previous;
     Node *next;
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->previous = nullptr;
         this->next = nullptr;
     }
@@ -70,7 +70,7 @@ public:
             Node *temp = head;
             while (temp->next)
             {
-                if (temp->data == data)
+                if (temp->key == data)
                 {
                     flag = false;
                     break;
@@ -102,7 +102,7 @@ public:
             Node *temp = head;
             while (temp)
             {
-                cout << temp->data << "->";
+                cout << temp->key << "->";
                 temp = temp->next;
             }
             cout << endl;
@@ -120,7 +120,7 @@ public:
             Node *temp = tail;
             while (temp)
             {
-                cout << temp->data << "->";
+                cout << temp->key << "->";
                 temp = temp->previous;
             }
             cout << endl;
@@ -192,12 +192,12 @@ public:
         Node *temp = head;
         while(temp->next)
         {
-            cout << temp->data << "->";
+            cout << temp->key << "->";
             temp = temp->next;
         }
         while(temp)
         {
-            cout << temp->data << "->";
+            cout << temp->key << "->";
             temp = temp->previous;
         }
         cout << endl;
@@ -222,12 +222,12 @@ public:
                 {
                     if(mHead == nullptr)
                     {
-                        mHead = new Node (temp2->data);
+                        mHead = new Node (temp2->key);
                         mTail = mHead;
                     }
                     else
                     {
-                        Node *newNode = new Node(temp2->data);
+                        Node *newNode = new Node(temp2->key);
                         newNode->previous = mTail;
                         mTail->next = newNode;
                         mTail = newNode;
@@ -241,12 +241,12 @@ public:
                 {
                     if(mHead == nullptr)
                     {
-                        mHead = new Node (temp1->data);
+                        mHead = new Node (temp1->key);
                         mTail = mHead;
                     }
                     else
                     {
-                        Node *newNode = new Node(temp1->data);
+                        Node *newNode = new Node(temp1->key);
                         newNode->previous = mTail;
                         mTail->next = newNode;
                         mTail = newNode;
@@ -254,58 +254,58 @@ public:
                     temp1 = temp1->next;
                 }
             }
-            if(temp1->data < temp2->data)
+            if(temp1->key < temp2->key)
             {
                 if(mHead == nullptr)
                 {
-                    mHead = new Node (temp1->data);
+                    mHead = new Node (temp1->key);
                     mTail = mHead;
                 }
                 else
                 {
-                    Node *newNode = new Node(temp1->data);
+                    Node *newNode = new Node(temp1->key);
                     newNode->previous = mTail;
                     mTail->next = newNode;
                     mTail = newNode;
                 }
                 temp1 = temp1->next;
             }
-            if(temp1->data > temp2->data)
+            if(temp1->key > temp2->key)
             {
                 if(mHead == nullptr)
                 {
-                    mHead = new Node (temp2->data);
+                    mHead = new Node (temp2->key);
                     mTail = mHead;
                 }
                 else
                 {
-                    Node *newNode = new Node(temp2->data);
+                    Node *newNode = new Node(temp2->key);
                     newNode->previous = mTail;
                     mTail->next = newNode;
                     mTail = newNode;
                 }
                 temp2 = temp2->next;
             }
-            if(temp1->data == temp2->data)
+            if(temp1->key == temp2->key)
             {
                 if(mHead == nullptr)
                 {
-                    mHead = new Node (temp1->data);
+                    mHead = new Node (temp1->key);
                     mTail = mHead;
 
-                    Node *newNode = new Node(temp2->data);
+                    Node *newNode = new Node(temp2->key);
                     newNode->previous = mTail;
                     mTail->next = newNode;
                     mTail = newNode;
                 }
                 else
                 {
-                    Node *newNode = new Node(temp1->data);
+                    Node *newNode = new Node(temp1->key);
                     newNode->previous = mTail;
                     mTail->next = newNode;
                     mTail = newNode;
 
-                    newNode = new Node(temp2->data);
+                    newNode = new Node(temp2->key);
                     newNode->previous = mTail;
                     mTail->next = newNode;
                     mTail = newNode;

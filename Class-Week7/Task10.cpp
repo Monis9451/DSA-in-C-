@@ -4,9 +4,9 @@ using namespace std;
 class Node
 {
     public:
-    int data;
+    int key;
     Node *next;
-    Node(int val) : data(val), next(nullptr) {}
+    Node(int val) : key(val), next(nullptr) {}
 };
 
 void reversing(Node *head)
@@ -16,7 +16,7 @@ void reversing(Node *head)
         return;
     }
     reversing(head->next);
-    cout << head->data << " -> ";
+    cout << head->key << " -> ";
 }
 
 void insertAtEnd(Node*& head, int data)
@@ -43,7 +43,7 @@ void printList(Node *head)
 {
     while (head != nullptr)
     {
-        cout << head->data << " -> ";
+        cout << head->key << " -> ";
         head = head->next;
     }
     cout << endl;

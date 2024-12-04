@@ -4,14 +4,14 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *previous;
     Node *next;
 
     // constructor
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->previous = nullptr;
         this->next = nullptr;
     }
@@ -71,7 +71,7 @@ class Linkedlist
             Node *temp = head;
             while (temp != nullptr)
             {
-                cout << temp->data << "->";
+                cout << temp->key << "->";
                 temp = temp->next;
             }
             cout << endl;
@@ -93,7 +93,7 @@ class Linkedlist
             }
             while(temp)
             {
-                cout << temp->data << "->";
+                cout << temp->key << "->";
                 temp = temp->previous;
             }
             cout << endl;
@@ -109,7 +109,7 @@ class Linkedlist
         else
         {
             Node *temp = head;
-            while(temp->data != data)
+            while(temp->key != data)
             {
                 temp = temp->next;
             }

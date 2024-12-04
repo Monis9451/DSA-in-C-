@@ -4,18 +4,18 @@ using namespace std;
 class Node
 {
 public:
-    int data;
+    int key;
     Node *next;
 
     Node()
     {
-        data = 0;
+        key = 0;
         next = nullptr;
     }
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->next = nullptr;
     }
 };
@@ -37,7 +37,7 @@ class LinkedList
         Node *temp = head;
         while (temp != nullptr)
         {
-            cout << temp->data << " ";
+            cout << temp->key << " ";
             temp = temp->next;
         }
         cout << endl;

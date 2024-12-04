@@ -4,13 +4,13 @@ using namespace std;
 class Node
 {
     public:
-    int data;
+    int key;
     Node *prev;
     Node *next;
 
     Node(int data)
     {
-        this->data = data;
+        this->key = data;
         this->prev = nullptr;
         this->next = nullptr;
     }
@@ -48,7 +48,7 @@ class Linkedlist
         bool flag = true;
         while(temp != nullptr)
         {
-            if(temp->data == n)
+            if(temp->key == n)
             {
                 flag = false;
                 break;
@@ -73,7 +73,7 @@ class Linkedlist
         Node *temp = head;
         while(temp != nullptr)
         {
-            cout << temp->data << "->";
+            cout << temp->key << "->";
             temp = temp->next;
         }
         cout << endl;
