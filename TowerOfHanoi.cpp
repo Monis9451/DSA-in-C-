@@ -57,25 +57,135 @@
 
 // C++ program for decimal to binary
 // conversion using recursion
-#include <iostream>
-using namespace std;
+// #include <iostream>
+// using namespace std;
 
 // Decimal to binary conversion
 // using recursion
-int find(int decimal_number)
-{
-	if (decimal_number == 0) 
-		return 0; 
-	else
-		return (decimal_number % 2 + 10 * 
-				find(decimal_number / 2));
-}
+// int find(int decimal_number)
+// {
+// 	if (decimal_number == 0) 
+// 		return 0; 
+// 	else
+// 		return (decimal_number % 2 + 10 * 
+// 				find(decimal_number / 2));
+// }
 
 // Driver code 
-int main()
-{
-	int decimal_number = 10;
-	cout << find(decimal_number);
-	return 0;
-}
+// int main()
+// {
+// 	int decimal_number = 10;
+// 	cout << find(decimal_number);
+// 	return 0;
+// }
 // This code is contributed by shivanisinghss2110
+
+#include <iostream>
+using namespace std;
+
+class Node
+{
+	public:
+	int data;
+	Node* left;
+	Node* right;
+	Node* parent;
+	Node(int data)
+	{
+		this->data = data;
+		left = right = parent = nullptr;
+	}
+};
+
+class Tree
+{
+	Node* Root;
+	Tree()
+	{
+		Root = nullptr;
+	}
+
+	Node* insertion(int data, Node* root)
+	{
+		if(!root || root->data == data)
+		{
+			root = new Node(data);
+			return root;
+		}
+		if(root->data < data)
+		{
+			root->right = insertion(data, root->right);
+			if(root->right)
+				root->right->parent = root;
+		}
+		if(root->data > data)
+		{
+			root->left = insertion(data, root->left);
+			if(root->left)
+				root->left->parent = root;
+		}
+		return root;
+	}
+
+	Node* search(int data, Node* root)
+	{
+		if(root->data == data)
+			return root;
+		if(root->data < data)
+			return search(data, root->right);
+		else
+			return search(data, root->left);
+	}
+
+	Node* deletion(int data, Node* root)
+	{
+		Node* toDel = search(data, root);
+		if(!toDel->right && !toDel->left)
+		{
+			if(toDel->parent->right == toDel)
+			toDel->parent->right = nullptr;
+			else
+			toDel->parent->left = nullptr;
+			delete toDel;
+		}
+		if(!toDel->right && toDel->left)
+		{
+			if(toDel->parent->right == toDel)
+			toDel->parent->right = toDel->left;
+			else
+			toDel->parent->left = toDel->left;
+			toDel->left->parent = toDel->parent;
+			delete toDel;
+		}
+		if(toDel->right && !toDel->left)
+		{
+			if(toDel->parent->right == toDel)
+			toDel->parent->right = toDel->right;
+			else
+			toDel->parent->left = toDel->right;
+			toDel->right->parent = toDel->parent;
+			delete toDel;
+		}
+		if(toDel->right && toDel->left)
+		{
+			Node* temp = root->right;
+			while(temp)
+			temp = temp->left;
+			toDel->data = temp->data;
+			deletion(temp->data, toDel->right);
+		}
+	}
+
+	int Height(Node* root)
+	{
+		if(!root)
+		return 1;
+		int rHeight = Height(root->right);
+		int lHeight = Height(root->left);
+		if(rHeight > lHeight)
+		return rHeight + 1;
+		else
+		return lHeight + 1;
+	}
+
+};
